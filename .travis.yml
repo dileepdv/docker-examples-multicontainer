@@ -14,7 +14,7 @@ after_success:
     - docker build -t dileepdv/complex-server ./server
     - docker build -t dileepdv/complex-worker ./worker
     #Login to docker
-    - echo "$DOCKER_PASSWORD" | docker login -u "#DOCKER_ID" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     #push to docker
     - docker push dileepdv/complex-client
     - docker push dileepdv/complex-nginx
