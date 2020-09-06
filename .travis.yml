@@ -6,7 +6,7 @@ before_install:
     - docker build -t complex-react-test -f ./client/Dockerfile.dev ./client/
 
 script:
-    - docker run -e CI=true complex-react-test npm test
+    - docker run -e CI=true complex-react-test npm run test
 
 after_success:
     - docker build -t dileepdv/complex-client ./client    
