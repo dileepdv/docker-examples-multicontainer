@@ -1,0 +1,22 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t complex-react-test -f ./client/Dockerfile.dev ./client/
+
+script:
+    - docker run -e CI=true complex-react-test npm test
+
+after_success:
+    - docker build -t dileepdv/complex-client ./client    
+    - docker build -t dileepdv/complex-nginx ./nginx
+    - docker build -t dileepdv/complex-server ./server
+    - docker build -t dileepdv/complex-worker ./worker
+    #Login to docker
+    - echo "$DOCKER_PASSWORD" | docker login -u "#DOCKER_ID" --password-stdin
+    #push to docker
+    - docker push dileepdv/complex-client
+    - docker push dileepdv/complex-nginx
+    - docker push dileepdv/complex-server
+    - docker push dileepdv/complex-worker
